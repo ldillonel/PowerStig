@@ -12,6 +12,10 @@ Configuration OracleJRE_config
 
         [Parameter(Mandatory = $true)]
         [string]
+        $JREVersion,
+
+        [Parameter(Mandatory = $true)]
+        [string]
         $StigVersion
     )
 
@@ -23,6 +27,7 @@ Configuration OracleJRE_config
         {
             ConfigPath     = $ConfigPath
             PropertiesPath = $PropertiesPath
+            JREVersion     = $JREVersion
             Stigversion    = $StigVersion
         }
     }

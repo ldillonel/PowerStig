@@ -9,7 +9,7 @@ foreach ($rule in $rules)
     {
         $Path = $ConfigPath
     }
-    else 
+    else
     {
         $Path = $PropertiesPath
     }
