@@ -9,10 +9,13 @@ using module ..\..\PowerStig.psm1
         A composite DSC resource to manage the OracleJRE 8 STIG settings
 
     .PARAMETER ConfigPath
-        The path to OracleJRE 8 config file
+        The path to OracleJRE config file
 
     .PARAMETER PropertiesPath
-        The path to OracleJRE 8 properties file
+        The path to OracleJRE properties file
+
+    .PARAMETER JREVersion
+        The version of JRE the STIG applies to
 
     .PARAMETER StigVersion
         The version of OracleJRE 8 STIG to apply and/or monitor
@@ -47,6 +50,11 @@ Configuration OracleJRE
         [Parameter(Mandatory = $true)]
         [string]
         $PropertiesPath,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('OracleJRE8')]
+        [string]
+        $JREVersion,
 
         [Parameter()]
         [ValidateSet('1.5')]
@@ -88,7 +96,7 @@ Configuration OracleJRE
 
     $technology        = [Technology]::Windows
     $technologyVersion = [TechnologyVersion]::New( "All", $technology )
-    $technologyRole    = [TechnologyRole]::New( "OracleJRE8", $technologyVersion )
+    $technologyRole    = [TechnologyRole]::New( $JREVersion, $technologyVersion )
     $stigDataObject    = [StigData]::New( $StigVersion, $orgSettingsObject, $technology,
                                           $technologyRole, $technologyVersion, $Exception,
                                           $SkipRuleType, $SkipRule )

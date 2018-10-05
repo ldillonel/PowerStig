@@ -14,18 +14,19 @@ try
     #region Test Setup
     $configPath = 'C:\Windows\Sun\Java\Deployment\deployment.config'
     $propertiesPath = 'C:\Windows\Java\Deployment\deployment.properties'
-    #endregionTest Setup    
+    #endregionTest Setup
 
     #region Integration Tests
     foreach ($stig in $stigList)
     {
-        Describe "OracleJRE 8 $($stig.StigVersion) mof output" {
+        Describe "$($stig.TechnologyRole) $($stig.StigVersion) mof output" {
 
             It 'Should compile the MOF without throwing' {
                 {
                     & "$($script:DSCCompositeResourceName)_config" `
                         -ConfigPath $configPath `
                         -PropertiesPath $propertiesPath `
+                        -JREVersion $stig.TechnologyRole `
                         -StigVersion $stig.stigVersion `
                         -OutputPath $TestDrive
                 } | Should not throw
